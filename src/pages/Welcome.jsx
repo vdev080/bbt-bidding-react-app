@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Slider from "react-slick";
+import video from "../assets/video/premvid01.mp4";
 import MainLayout from "../layouts/MainLayout";
 
 function PrevArrow(props) {
@@ -74,7 +75,7 @@ export default function Welcome() {
                                     <a href="javascript:void(0);">
                                         <div className="img-box gradient">
                                             <video autoPlay muted playsInline preload="auto" loop>
-                                                <source src="/video/premvid01.mp4" type="video/mp4" />
+                                                <source src={video} type="video/mp4" />
                                             </video>
                                         </div>
 
