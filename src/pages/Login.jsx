@@ -4,26 +4,7 @@ import { Link } from "react-router-dom";
 export default function Login() {
   return (
     <>
-      <section className="relative h-screen">
-        <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src={video} type="video/mp4" />
-        </video>
-
-        <div className="absolute inset-0 bg-black/40"></div>
-
-        <div className="relative z-10 heading-box center text-white">
-          <h1>
-            Welcome to <strong>BBT</strong>
-          </h1>
-          <p>India’s Premier Luxury Automobile Brand</p>
-        </div>
-      </section>
+      <section className="full-video-slider-section h-screen"> <div className="video-item"> <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline > <source src={video} type="video/mp4" /> </video> </div> <div className="heading-box center"> <h1> Welcome to <strong>BBT</strong> </h1> <p>India’s Premier Luxury Automobile Brand</p> </div> </section>
 
       <div className="login-bar">
         <div className="container text-center">
