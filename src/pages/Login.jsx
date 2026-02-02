@@ -22,14 +22,17 @@ export default function Login() {
     <section className="full-video-slider-section h-screen">
       <div className="video-item">
         <video
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src={content.background_video?.url} type="video/mp4" />
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            {content.background_video && (
+              <source src={content.background_video} type="video/mp4" />
+            )}
         </video>
+
       </div>
 
       <div className="heading-box center">
