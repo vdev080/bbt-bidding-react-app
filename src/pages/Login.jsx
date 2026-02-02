@@ -28,7 +28,7 @@ export default function Login() {
           loop
           playsInline
         >
-          <source src={content.bg_video?.url} type="video/mp4" />
+          <source src={content.background_video?.url} type="video/mp4" />
         </video>
       </div>
 
@@ -49,7 +49,7 @@ export default function Login() {
             to="/welcome"
             className="continue-btn mt-3 inline-block"
           >
-            {content.guest_btn}
+            {content.guest_button_text}
           </Link>
         </div>
       </div>
