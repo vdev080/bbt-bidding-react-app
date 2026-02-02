@@ -37,7 +37,7 @@ export default function Login() {
 
       <div className="heading-box center">
         <h1>
-          {content.heading} <strong>BBT</strong>
+          {content.heading}
         </h1>
         <p>{content.sub_heading}</p>
       </div>
