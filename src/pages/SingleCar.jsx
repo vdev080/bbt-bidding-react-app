@@ -6,9 +6,7 @@ export default function SingleCar() {
   const [car, setCar] = useState(null);
 
   useEffect(() => {
-    fetch(
-      `http://localhost/react-bbt-wp/wp-json/wp/v2/cars?slug=${slug}`
-    )
+    fetch(`http://localhost/react-bbt-wp/wp-json/wp/v2/cars?slug=${slug}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.length) {
@@ -22,12 +20,40 @@ export default function SingleCar() {
 
   return (
     <div className="container py-10">
+
+      {/* TITLE */}
       <h1 dangerouslySetInnerHTML={{ __html: car.title.rendered }} />
 
+      {/* CONTENT */}
       <div
         className="mt-4"
         dangerouslySetInnerHTML={{ __html: car.content.rendered }}
       />
+
+      {/* ACF FEATURED IMAGE */}
+      {car.acf?.featured_image && (
+        <div className="mt-4">
+          <img src={car.acf.featured_image} alt={car.title.rendered} />
+        </div>
+      )}
+
+      {/* ===== YOUR BANNER ACF FIELDS ===== */}
+
+      <div className="heading-box">
+
+        {/* banner heading */}
+        <h1>{car.acf?.banner_heading}</h1>
+
+        {/* banner description */}
+        <p>{car.acf?.banner_description}</p>
+
+        {/* banner image */}
+        {car.acf?.banner_image && (
+          <img src={car.acf.banner_image} alt="" />
+        )}
+
+      </div>
+
     </div>
   );
 }
