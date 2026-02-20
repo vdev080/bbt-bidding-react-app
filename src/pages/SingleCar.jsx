@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import MainLayout from "../layouts/MainLayout";   // ✅ ADD THIS (fix path if needed)
 
 export default function SingleCar() {
   const { slug } = useParams();
@@ -9,51 +10,62 @@ export default function SingleCar() {
     fetch(`http://localhost/react-bbt-wp/wp-json/wp/v2/cars?slug=${slug}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.length) {
-          setCar(data[0]);
-        }
+        if (data.length) setCar(data[0]);
       })
       .catch((err) => console.error(err));
   }, [slug]);
 
   if (!car) return <p>Loading...</p>;
 
+  // ✅ Handle ACF image return type (URL OR object)
+  const bannerImage =
+    typeof car.acf?.banner_image === "object"
+      ? car.acf?.banner_image?.url
+      : car.acf?.banner_image;
+
+  const featuredImage =
+    typeof car.acf?.featured_image === "object"
+      ? car.acf?.featured_image?.url
+      : car.acf?.featured_image;
+
   return (
-    <div className="container py-10">
+    <MainLayout>
+      <div className="container py-10">
 
-      {/* TITLE */}
-      <h1 dangerouslySetInnerHTML={{ __html: car.title.rendered }} />
+        {/* TITLE */}
+        <h1 dangerouslySetInnerHTML={{ __html: car.title.rendered }} />
 
-      {/* CONTENT */}
-      <div
-        className="mt-4"
-        dangerouslySetInnerHTML={{ __html: car.content.rendered }}
-      />
+        {/* CONTENT */}
+        <div
+          className="mt-4"
+          dangerouslySetInnerHTML={{ __html: car.content.rendered }}
+        />
 
-      {/* ACF FEATURED IMAGE */}
-      {car.acf?.featured_image && (
-        <div className="mt-4">
-          <img src={car.acf.featured_image} alt={car.title.rendered} />
-        </div>
-      )}
-
-      {/* ===== YOUR BANNER ACF FIELDS ===== */}
-
-      <div className="heading-box">
-
-        {/* banner heading */}
-        <h1>{car.acf?.banner_heading}</h1>
-
-        {/* banner description */}
-        <p>{car.acf?.banner_description}</p>
-
-        {/* banner image */}
-        {car.acf?.banner_image && (
-          <img src={car.acf.banner_image} alt="" />
+        {/* FEATURED IMAGE */}
+        {featuredImage && (
+          <div className="mt-4">
+            <img src={featuredImage} alt={car.title.rendered} />
+          </div>
         )}
 
-      </div>
+        {/* BANNER ACF */}
+        <div className="heading-box">
 
-    </div>
+          {car.acf?.banner_heading && (
+            <h2>{car.acf.banner_heading}</h2>
+          )}
+
+          {car.acf?.banner_description && (
+            <p>{car.acf.banner_description}</p>
+          )}
+
+          {bannerImage && (
+            <img src={bannerImage} alt="banner" />
+          )}
+
+        </div>
+
+      </div>
+    </MainLayout>
   );
 }
